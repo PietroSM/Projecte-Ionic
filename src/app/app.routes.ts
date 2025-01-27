@@ -3,12 +3,22 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'folder/inbox',
+    redirectTo: 'auth/login',
     pathMatch: 'full',
   },
   {
-    path: 'folder/:id',
-    loadComponent: () =>
-      import('./folder/folder.page').then((m) => m.FolderPage),
+    path: 'auth',
+    loadChildren: () =>
+      import('./auth/auth.routes').then((m) => m.authRoutes),
   },
+  {
+    path: 'profile',
+    loadChildren: () =>
+      import('./profile/profile.routes').then((m) => m.profileRoutes),
+  },
+  {
+    path: 'posts',
+    loadChildren: () =>
+      import('./posts/posts.routes').then((m) => m.postsRoutes),
+  }
 ];
