@@ -45,8 +45,6 @@ import { SplashScreen } from '@capacitor/splash-screen';
     IonMenu,
     IonContent,
     IonList,
-    IonListHeader,
-    IonNote,
     IonMenuToggle,
     IonItem,
     IonIcon,
@@ -78,11 +76,11 @@ export class AppComponent {
     });
 
     effect(() => {
-      if (this.#authService.getLogged()) {
-        this.#userService.getProfile().subscribe((user) => this.user.set(user));
-      } else {
-        this.user.set(null);
-      }
+      // if (this.#authService.getLogged()) {
+      //   this.#userService.getProfile().subscribe((user) => this.user.set(user));
+      // } else {
+      //   this.user.set(null);
+      // }
     });
 
     this.initializeApp();
