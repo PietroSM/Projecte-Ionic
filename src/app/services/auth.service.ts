@@ -19,10 +19,14 @@ export class AuthService {
     return this.#logged;
   }
 
-  register(user: User): Observable<User> {
+  register(user: User): Observable<void> {
     return this.#http
       .post<SingleUserResponse>(`${this.#eventsURL}/register`, user)
-      .pipe(map((resp) => resp.user));
+      .pipe(
+        switchMap(async (r) => {
+          r.user
+        })
+      );
   }
 
 
