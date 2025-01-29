@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { ToastController, AlertController, IonButton, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonList, IonRouterLink, IonRow, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { ToastController, AlertController, IonButton, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonList, IonRouterLink, IonRow, IonTitle, IonToolbar, NavController } from '@ionic/angular/standalone';
 import { AuthService } from 'src/app/services/auth.service';
 import { Geolocation } from '@capacitor/geolocation';
 import { UserLogin } from 'src/app/interfaces/user';
@@ -21,6 +21,7 @@ export class LoginPage {
 
   #authService = inject(AuthService);
   #toastCtrl = inject(ToastController);
+  #navCtrl = inject(NavController);
 
 
   constructor() {
@@ -50,8 +51,7 @@ export class LoginPage {
     this.#authService
       .login(newLogin)
       .subscribe({
-        next: () => console.log("hola"),
-        // next: () => this.#navCtrl.navigateRoot(['/products']),
+        next: () => this.#navCtrl.navigateRoot(['/posts/home']),
         error: async (error) => {
           (
             await this.#toastCtrl.create({
