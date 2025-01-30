@@ -40,13 +40,6 @@ import { EventCardPage } from '../event-card/event-card.page';
   imports: [
     IonInfiniteScrollContent,
     IonInfiniteScroll,
-    IonCardSubtitle,
-    IonLabel,
-    IonCardTitle,
-    IonCardHeader,
-    IonButton,
-    IonItem,
-    IonCard,
     IonIcon,
     IonFab,
     IonFabButton,
@@ -61,8 +54,6 @@ import { EventCardPage } from '../event-card/event-card.page';
     FormsModule,
     IonMenuButton,
     RouterLink,
-    IonCardContent,
-    IntlCurrencyPipe,
     IonSearchbar,
     EventCardPage
   ],

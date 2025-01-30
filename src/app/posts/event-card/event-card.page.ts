@@ -23,7 +23,7 @@ import { IntlCurrencyPipe } from 'src/app/shared/pipes/intl-currency.pipe';
   templateUrl: './event-card.page.html',
   styleUrls: ['./event-card.page.scss'],
   standalone: true,
-  imports: [IonImg, 
+  imports: [ 
     IonCardContent,
     IonCardSubtitle,
     IonCardTitle,

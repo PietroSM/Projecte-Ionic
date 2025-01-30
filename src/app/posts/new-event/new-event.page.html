@@ -13,8 +13,104 @@
     class="mt-4"
     id="newEvent"
   >
+  <ion-list>
+    <ion-item>
+      <ion-input type="text"
+      class="form-control"
+      name="title"
+      id="title"
+      placeholder="Enter title"
+      labelPlacement="floating"
+      formControlName="title"></ion-input>
+
+      @if (!newEvent.get('title')?.errors) {
+        <ion-icon name="checkmark-circle" slot="end" color="success"></ion-icon>
+      }
+    </ion-item>
+    
+    <ion-item>
+      <ion-input type="date"
+      class="form-control"
+      id="date"
+      name="date"
+      labelPlacement="floating"
+      formControlName="date"></ion-input>
+
+      @if (!newEvent.get('date')?.errors) {
+        <ion-icon name="checkmark-circle" slot="end" color="success"></ion-icon>
+      }
+    </ion-item>
+
+    <ion-item>
+      <ion-input class="form-control"
+      id="description"
+      name="description"
+      rows="3"
+      labelPlacement="floating"
+      formControlName="description"></ion-input>
+
+      @if (!newEvent.get('description')?.errors) {
+        <ion-icon name="checkmark-circle" slot="end" color="success"></ion-icon>
+      }
+    </ion-item>
+
+    <ion-item>
+      <ion-input type="number"
+      class="form-control"
+      id="price"
+      name="price"
+      min="0.00"
+      max="10000.00"
+      step="0.01"
+      labelPlacement="floating"
+      formControlName="price"></ion-input>
+
+      @if (!newEvent.get('price')?.errors) {
+        <ion-icon name="checkmark-circle" slot="end" color="success"></ion-icon>
+      }
+    </ion-item>
 
 
+      <ion-item>
+        <ol-map [coordinates]="coordinates()">
+            <ga-autocomplete style="color: black;" (locationChange)="changePlace($event)"></ga-autocomplete>
+            <ol-marker [coordinates]="coordinates()"></ol-marker>
+        </ol-map>   
+    </ion-item>
+
+
+    <ion-item>
+      <ion-label position="inset">Photo</ion-label>
+      <ion-button color="secondary" (click)="takePhoto()">
+        <ion-icon name="camera" slot="start"></ion-icon>
+        Camera
+      </ion-button>
+      <ion-button color="tertiary" (click)="pickFromGallery()">
+        <ion-icon name="images" slot="start"></ion-icon>
+        Gallery
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+  @if(newEvent.getRawValue().image){
+    <ion-img [src]="newEvent.getRawValue().image"></ion-img>
+  }
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+  <ion-button type="submit" [disabled]="newEvent.invalid">
+    Create<ion-icon name="add" slot="start"></ion-icon>
+  </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button color="danger" expand="block" fill="outline" [routerLink]="['/posts/home']">
+          <ion-icon name="arrow-undo-circle" slot="start"></ion-icon>
+          Cancel
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
   </form>
 </ion-content>

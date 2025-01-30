@@ -75,7 +75,7 @@ export class AppComponent {
   #nav = inject(NavController);
 
   public appPages = [
-    { title: 'Home', url: '/posts/events', icon: 'home' },
+    { title: 'Home', url: '/posts/home', icon: 'home' },
     { title: 'Add', url: '/posts/add', icon: 'add'}
   ];
 
