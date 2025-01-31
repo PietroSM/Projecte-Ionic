@@ -28,7 +28,7 @@ import { EventsService } from 'src/app/services/events.service';
   templateUrl: './new-event.page.html',
   styleUrls: ['./new-event.page.scss'],
   standalone: true,
-  imports: [IonSearchbar, IonGrid, IonRow, IonCol, IonImg, IonButton, IonLabel, IonIcon, IonInput, IonItem, IonList, 
+  imports: [IonGrid, IonRow, IonCol, IonImg, IonButton, IonLabel, IonIcon, IonInput, IonItem, IonList,
     IonContent,
     IonHeader,
     IonTitle,
@@ -39,8 +39,7 @@ import { EventsService } from 'src/app/services/events.service';
     RouterLink,
     OlMapDirective,
     OlMarkerDirective,
-    GaAutocompleteDirective
-],
+    GaAutocompleteDirective],
 })
 export class NewEventPage {
   #fb = inject(NonNullableFormBuilder);

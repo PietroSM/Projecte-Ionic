@@ -10,7 +10,7 @@ import { EventCardPage } from '../../event-card/event-card.page';
   templateUrl: './event-info.page.html',
   styleUrls: ['./event-info.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, EventCardPage]
+  imports: [IonContent, IonHeader, IonToolbar, CommonModule, FormsModule, EventCardPage]
 })
 export class EventInfoPage{
 

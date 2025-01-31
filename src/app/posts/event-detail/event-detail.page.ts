@@ -11,7 +11,7 @@ import { RouterLink } from '@angular/router';
   templateUrl: './event-detail.page.html',
   styleUrls: ['./event-detail.page.scss'],
   standalone: true,
-  imports: [IonLabel, IonIcon, IonTabButton, IonTabBar, IonTabs, IonBackButton, IonButtons, IonHeader, IonToolbar, CommonModule, FormsModule, RouterLink]
+  imports: [IonLabel, IonIcon, IonTabButton, IonTabBar, IonTabs, IonBackButton, IonButtons, IonHeader, IonToolbar, CommonModule, FormsModule]
 })
 export class EventDetailPage{
 

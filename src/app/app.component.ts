@@ -39,7 +39,8 @@ import {
   share,
   heart,
   map,
-  person
+  person,
+  navigate
 } from 'ionicons/icons';
 import { User } from './interfaces/user';
 import { AuthService } from './services/auth.service';
@@ -101,7 +102,8 @@ export class AppComponent {
       share,
       heart,
       map,
-      person
+      person,
+      navigate
     });
 
     effect(() => {
