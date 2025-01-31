@@ -14,7 +14,7 @@ import {
   IonCardTitle,
   IonCardSubtitle,
   IonCardContent,
-  ActionSheetController, IonImg } from '@ionic/angular/standalone';
+  ActionSheetController, IonImg, NavController } from '@ionic/angular/standalone';
 import { MyEvent } from 'src/app/interfaces/my-event';
 import { IntlCurrencyPipe } from 'src/app/shared/pipes/intl-currency.pipe';
 
@@ -41,6 +41,7 @@ export class EventCardPage {
   deleted = output<void>();
 
   #actionSheetController = inject(ActionSheetController);
+  #nav = inject(NavController);
 
 
   async showAction(){
@@ -50,7 +51,7 @@ export class EventCardPage {
           text: 'Detail Event',
           icon: 'share',
           handler: () => {
-
+            this.#nav.navigateRoot(['/posts/'+this.event().id]);
           }
         },
         {

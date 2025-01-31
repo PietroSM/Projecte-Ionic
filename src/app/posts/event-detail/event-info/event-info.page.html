@@ -1,0 +1,11 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  @if(event()){
+    <event-card [event]="event()!"></event-card>
+  }
+</ion-content>
+

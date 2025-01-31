@@ -25,5 +25,5 @@ export const routes: Routes = [
     loadChildren: () =>
       import('./posts/posts.routes').then((m) => m.postsRoutes),
     canActivate: [loginActiveGuard]
-  }
+  },
 ];
