@@ -5,5 +5,44 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-item>
+    <ion-label slot="start">
+      <ion-title>
+        <ion-icon name="person"></ion-icon> {{event()?.numAttend}}
+      </ion-title>
+    </ion-label>
 
+    <ion-label  slot="end">
+      <ion-title>
+        @if(event()?.attend){
+          <ion-tab-button (click)="canviarAttend()">
+            <ion-icon name="person-add-outline"></ion-icon
+          >Attend</ion-tab-button>
+          }@else{
+          <ion-tab-button (click)="canviarAttend()">
+            <ion-icon name="person-remove-outline"></ion-icon> No
+            Attend</ion-tab-button
+          >
+          }
+      </ion-title>
+    </ion-label>
+  </ion-item>
+
+  <ion-list>
+    @for (user of attendees(); track user.id) {
+    <ion-item>
+      <ion-avatar slot="start">
+        <img style="width: 40px" [src]="user.avatar" alt="" />
+      </ion-avatar>
+      <div>
+        <div>
+          <a class="text-decoration-none name" href="">{{user.name}}</a>
+        </div>
+        <div>
+          <small class="email">{{user.email}}</small>
+        </div>
+      </div>
+    </ion-item>
+    }
+  </ion-list>
 </ion-content>

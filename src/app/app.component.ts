@@ -40,7 +40,9 @@ import {
   heart,
   map,
   person,
-  navigate
+  navigate,
+  personAddOutline,
+  personRemoveOutline
 } from 'ionicons/icons';
 import { User } from './interfaces/user';
 import { AuthService } from './services/auth.service';
@@ -103,7 +105,9 @@ export class AppComponent {
       heart,
       map,
       person,
-      navigate
+      navigate,
+      personAddOutline,
+      personRemoveOutline
     });
 
     effect(() => {
