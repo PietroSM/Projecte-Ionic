@@ -5,9 +5,39 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">event-comments</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-list>
+    @for(comment of comments(); track comment.id){
+      <ion-item>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="auto" class="ion-text-center user-info">
+              <ion-avatar>
+                <img [src]="comment.user.avatar" alt="" class="rounded-circle" />
+              </ion-avatar>
+              <div>
+                <small>
+                  <a class="text-decoration-none name" href="">{{ comment.user.name }}</a>
+                </small>
+              </div>
+              <div>
+                <small class="date">{{ comment.date | date : "dd/MM/yyyy" }}</small>
+              </div>
+            </ion-col>
+            <ion-col>
+              <ion-label>
+                {{ comment.comment }}
+              </ion-label>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    }
+  </ion-list>
+
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="secondary" (click)="addCommment()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
