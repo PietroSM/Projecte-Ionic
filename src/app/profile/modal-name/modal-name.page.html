@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Change Profile</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form
+  #formEvent="ngForm"
+  [formGroup]="newEdit"
+  (ngSubmit)="editNameEmail()"
+  id="newEdit"
+>
+  <ion-item class="ion-margin-bottom">
+    <ion-input type="text"
+    class="form-control"
+    name="email"
+    id="email"
+    placeholder="Enter Email"
+    labelPlacement="floating"
+    formControlName="email"></ion-input>
+  </ion-item>
+  
+  <ion-item class="ion-margin-bottom">
+    <ion-input
+      type="text"
+      name="name"
+      id="name"
+      placeholder="Enter Name"
+      labelPlacement="floating"
+      formControlName="name"
+    ></ion-input>
+  </ion-item>
+
+  <ion-button expand="full" type="submit" color="primary">Save changes</ion-button>
+</form>
+
+</ion-content>

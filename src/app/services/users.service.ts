@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { SingleUserResponse } from '../interfaces/responses';
-import { User } from '../interfaces/user';
+import { User, UserPasswordEdit, UserPhotoEdit, UserProfileEdit } from '../interfaces/user';
 
 @Injectable({
   providedIn: 'root'
@@ -18,5 +18,21 @@ export class UsersService {
       .pipe(map((resp) => resp.user)) :
       this.#http.get<SingleUserResponse>(`${this.#usersURL}/${id}`)
       .pipe(map((resp) => resp.user));
+  }
+
+
+  saveProfile(user: UserProfileEdit): Observable<void> {
+    return this.#http
+      .put<void>(`${this.#usersURL}/me`, user);
+  }
+
+  savePassword(password: UserPasswordEdit): Observable<void> {
+    return this.#http
+      .put<void>(`${this.#usersURL}/me/password`, password);
+  }
+
+  saveAvatar(avatar: UserPhotoEdit): Observable<void> {
+    return this.#http
+      .put<void>(`${this.#usersURL}/me/photo`, avatar);
   }
 }

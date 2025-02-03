@@ -58,7 +58,7 @@ export class EventCardPage {
           text: 'Creator',
           icon: 'heart',
           handler: () => {
-
+            this.#nav.navigateRoot(['/profile/'+this.event().creator.id]);
           }
         },
         {

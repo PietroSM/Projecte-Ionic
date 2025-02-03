@@ -1,0 +1,36 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>profile-page</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-row class="ion-margin-top" id="profile">
+    <ion-col size="3">
+      <div>
+        <ion-img class="ion-full-width" id="avatar" src="{{user().avatar}}"></ion-img>
+      </div>
+    </ion-col>
+
+    <ion-col style="margin-left: 2em;">
+      <ion-text>
+        <h4 id="name">{{ name() }}</h4>
+      </ion-text>
+      <ion-text color="medium">
+        <h4 id="email">
+          <small>{{ email() }}</small>
+        </h4>
+      </ion-text>
+      
+    </ion-col>
+  </ion-row>
+  
+  <ion-button (click)="openModalProfile()" color="secondary" expand="block">
+    <ion-label>Edit Profile</ion-label>
+  </ion-button>
+  <ion-button (click)="openModalPassword()" color="secondary" expand="block">
+    <ion-label>Edit Password</ion-label>
+  </ion-button>
+
+</ion-content>
