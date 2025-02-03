@@ -20,19 +20,19 @@ import {
   IonButton,
   IonText,
   IonLabel,
-  ModalController,
-} from '@ionic/angular/standalone';
+  ModalController, IonItem, IonIcon } from '@ionic/angular/standalone';
 import { User } from 'src/app/interfaces/user';
 import { ModalNamePage } from '../modal-name/modal-name.page';
 import { UsersService } from 'src/app/services/users.service';
 import { ModalPasswordPage } from '../modal-password/modal-password.page';
+import { Camera, CameraSource, CameraResultType } from '@capacitor/camera';
 
 @Component({
   selector: 'app-profile-page',
   templateUrl: './profile-page.page.html',
   styleUrls: ['./profile-page.page.scss'],
   standalone: true,
-  imports: [
+  imports: [IonIcon, IonItem, 
     IonLabel,
     IonText,
     IonButton,
@@ -104,6 +104,32 @@ export class ProfilePagePage {
 
   }
 
+  async takePhoto(){
+    const photo = await Camera.getPhoto({
+      source: CameraSource.Camera,
+      quality: 90,
+      height: 768,
+      width: 1024,
+      // allowEditing: true,
+      resultType: CameraResultType.DataUrl // Base64 (url encoded)
+    });
 
+    // this.newEvent.get('image')?.setValue(photo.dataUrl as string);
+    // this.#changeDetector.markForCheck();
+  }
+
+  async pickFromGallery(){
+    const photo = await Camera.getPhoto({
+      source: CameraSource.Photos,
+      height: 640,
+      width: 640,
+      // allowEditing: true,
+      resultType: CameraResultType.DataUrl // Base64 (url encoded)
+    });
+
+    // this.newEvent.get('image')?.setValue(photo.dataUrl as string);
+    // this.#changeDetector.markForCheck();
+  
+  }
 
 }
