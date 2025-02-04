@@ -23,7 +23,6 @@ export class EventLocationPage{
 
   validInputId = false;
 
-
   constructor() {
     effect(() => {
       this.coordinates.set([this.event()!.lat, this.event()!.lng]);

@@ -102,6 +102,8 @@ export class HomePage {
     });
   }
 
-
+  deleteEvent(event: MyEvent) {
+    this.events.update(events => events.filter((p) => p !== event))
+  }
 
 }

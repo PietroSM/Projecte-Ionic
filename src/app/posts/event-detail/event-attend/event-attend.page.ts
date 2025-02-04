@@ -5,13 +5,14 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonList, IonItem, IonAvata
 import { EventDetailPage } from '../event-detail.page';
 import { EventsService } from 'src/app/services/events.service';
 import { User } from 'src/app/interfaces/user';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-event-attend',
   templateUrl: './event-attend.page.html',
   styleUrls: ['./event-attend.page.scss'],
   standalone: true,
-  imports: [IonTabButton, IonLabel, IonIcon, IonButton, IonAvatar, IonItem, IonList, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [IonTabButton, IonLabel, IonIcon, IonButton, IonAvatar, IonItem, IonList, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, RouterLink]
 })
 export class EventAttendPage{
 

@@ -5,7 +5,8 @@
 
 <ion-content [fullscreen]="true">
   @if(event()){
-    <event-card [event]="event()!"></event-card>
+    <event-card [event]="event()!" (deleted)="deleteEvent()"></event-card>
   }
+
 </ion-content>
 

@@ -33,6 +33,7 @@
     @for (event of events(); track event.id){
       <event-card
       [event]="event"
+      (deleted)="deleteEvent(event)"
       ></event-card>
     }
   
