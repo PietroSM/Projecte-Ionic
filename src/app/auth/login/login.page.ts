@@ -1,10 +1,11 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { ToastController, AlertController, IonButton, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonList, IonRouterLink, IonRow, IonTitle, IonToolbar, NavController } from '@ionic/angular/standalone';
+import { ToastController, AlertController, IonButton, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonList, IonRouterLink, IonRow, IonTitle, IonToolbar, NavController, IonLabel } from '@ionic/angular/standalone';
 import { AuthService } from 'src/app/services/auth.service';
 import { Geolocation } from '@capacitor/geolocation';
-import { UserLogin } from 'src/app/interfaces/user';
+import { GoogleUser, UserLogin } from 'src/app/interfaces/user';
+import { SocialLogin } from '@capgo/capacitor-social-login';
 
 
 @Component({
@@ -12,7 +13,7 @@ import { UserLogin } from 'src/app/interfaces/user';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [FormsModule, RouterLink, IonRouterLink, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonInput, IonGrid, IonRow, IonCol, IonButton, IonIcon]
+  imports: [IonLabel, FormsModule, RouterLink, IonRouterLink, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonInput, IonGrid, IonRow, IonCol, IonButton, IonIcon]
 })
 export class LoginPage {
   email = '';
@@ -62,6 +63,27 @@ export class LoginPage {
           ).present();
         },
       });
+  }
+
+
+
+  user = signal<GoogleUser | null>(null);
+
+  async loginGoogle() {
+    try {
+      const resp = await SocialLogin.login({
+        provider: 'google',
+        options: {
+          scopes: ['email', 'profile'],
+        },
+      });
+      if(resp.result.responseType === 'online') {
+        this.user.set(resp.result.profile);
+        console.log(resp.result.idToken);
+      }
+    } catch (err) {
+      console.error(err);
+    }
   }
 
 

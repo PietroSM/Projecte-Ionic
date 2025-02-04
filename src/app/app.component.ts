@@ -6,8 +6,6 @@ import {
   IonMenu,
   IonContent,
   IonList,
-  IonListHeader,
-  IonNote,
   IonMenuToggle,
   IonItem,
   IonIcon,
@@ -48,6 +46,8 @@ import { User } from './interfaces/user';
 import { AuthService } from './services/auth.service';
 import { UsersService } from './services/users.service';
 import { SplashScreen } from '@capacitor/splash-screen';
+import { SocialLogin } from '@capgo/capacitor-social-login';
+
 
 @Component({
   selector: 'app-root',
@@ -68,7 +68,7 @@ import { SplashScreen } from '@capacitor/splash-screen';
     IonRouterLink,
     IonRouterOutlet,
     IonAvatar,
-    IonImg,
+    IonImg
   ],
 })
 export class AppComponent {
@@ -112,7 +112,7 @@ export class AppComponent {
     });
 
     effect(() => {
-      if (this.#authService.getLogged()) {
+      if (!this.#authService.getLogged()) {
         this.#userService.getProfile().subscribe((user) => this.user.set(user));
       } else {
         this.user.set(null);
@@ -127,10 +127,49 @@ export class AppComponent {
       await this.#platform.ready();
       SplashScreen.hide();
     }
+
+    await SocialLogin.initialize({
+      google: {
+        webClientId: '746820501392-oalflicqch2kuc12s8rclb5rf7b1fist.apps.googleusercontent.com', // the web client id for Android and Web
+        // mode: 'offline' // replaces grantOfflineAccess
+      },
+      facebook: {
+        appId: '1100988247798042',
+        clientToken: '220465b47c8d891de3c0fbcf25e5c1fe',
+      },
+    });
   }
+
+
+
+
+  // async initializeApp() {
+  //   console.log("Vamos a entrar...");
+  //   if (this.#platform.is('mobile')) {
+  //     console.log("Entrando...");
+  //     await this.#platform.ready();
+  //     SplashScreen.hide();
+  //     console.log("Vamos a ello!");
+  //     await SocialLogin.initialize({
+  //       google: {
+  //         webClientId: '746820501392-oalflicqch2kuc12s8rclb5rf7b1fist.apps.googleusercontent.com', // the web client id for Android and Web
+  //         // mode: 'offline' // replaces grantOfflineAccess
+  //       },
+  //       facebook: {
+  //         appId: '1100988247798042',
+  //         clientToken: '220465b47c8d891de3c0fbcf25e5c1fe',
+  //       },
+  //     });
+  //   }
+  // }
+
+
 
   async logout() {
     await this.#authService.logout();
     this.#nav.navigateRoot(['/auth/login']);
   }
+
+
+  
 }

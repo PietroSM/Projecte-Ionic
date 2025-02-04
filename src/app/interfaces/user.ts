@@ -36,6 +36,13 @@ export interface UserGoogleLogin {
 }
 
 
+export interface GoogleUser {
+    imageUrl: string | null;
+    email: string | null;
+    name: string | null;
+  }
+
+
 export interface UserFacebookLogin {
     token: string;
     lat?: number;
