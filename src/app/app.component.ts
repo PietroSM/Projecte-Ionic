@@ -81,7 +81,8 @@ export class AppComponent {
 
   public appPages = [
     { title: 'Home', url: '/posts/home', icon: 'home' },
-    { title: 'Add', url: '/posts/add', icon: 'add'}
+    { title: 'Add', url: '/posts/add', icon: 'add'},
+    { title: 'Profile', url: '/profile/me', icon: 'person'}
   ];
 
   constructor() {
@@ -111,11 +112,11 @@ export class AppComponent {
     });
 
     effect(() => {
-      // if (this.#authService.getLogged()) {
-      //   this.#userService.getProfile().subscribe((user) => this.user.set(user));
-      // } else {
-      //   this.user.set(null);
-      // }
+      if (this.#authService.getLogged()) {
+        this.#userService.getProfile().subscribe((user) => this.user.set(user));
+      } else {
+        this.user.set(null);
+      }
     });
 
     this.initializeApp();

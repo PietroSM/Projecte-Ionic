@@ -1,6 +1,9 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>profile-page</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="posts/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>profile page</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -9,7 +12,7 @@
   <ion-row class="ion-margin-top" id="profile">
     <ion-col size="3">
       <div>
-        <ion-img class="ion-full-width" id="avatar" src="{{user().avatar}}"></ion-img>
+        <ion-img class="ion-full-width" id="avatar" src="{{avatar()}}"></ion-img>
       </div>
     </ion-col>
 
@@ -25,23 +28,28 @@
       
     </ion-col>
   </ion-row>
-  
-  <ion-button (click)="openModalProfile()" color="secondary" expand="block">
-    <ion-label>Edit Profile</ion-label>
-  </ion-button>
-  <ion-button (click)="openModalPassword()" color="secondary" expand="block">
-    <ion-label>Edit Password</ion-label>
-  </ion-button>
-  <ion-item>
-    <ion-label position="inset">Photo</ion-label>
-    <ion-button color="secondary" (click)="takePhoto()">
-      <ion-icon name="camera" slot="start"></ion-icon>
-      Camera
+  @if(user().me){
+    <ion-button (click)="openModalProfile()" color="secondary" expand="block">
+      <ion-label>Edit Profile</ion-label>
     </ion-button>
-    <ion-button color="tertiary" (click)="pickFromGallery()">
-      <ion-icon name="images" slot="start"></ion-icon>
-      Gallery
+    <ion-button (click)="openModalPassword()" color="secondary" expand="block">
+      <ion-label>Edit Password</ion-label>
     </ion-button>
-  </ion-item>
+    <ion-item>
+      <ion-button color="secondary" (click)="takePhoto()">
+        <ion-icon name="camera" slot="start"></ion-icon>
+        Camera
+      </ion-button>
+      <ion-button color="tertiary" (click)="pickFromGallery()">
+        <ion-icon name="images" slot="start"></ion-icon>
+        Gallery
+      </ion-button>
+    </ion-item>
+  }
 
+  <ion-row>
+    <ol-map [coordinates]="coordinates()">
+      <ol-marker [coordinates]="coordinates()"></ol-marker>
+    </ol-map> 
+  </ion-row>
 </ion-content>

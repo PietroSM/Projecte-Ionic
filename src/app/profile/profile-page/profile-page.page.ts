@@ -3,12 +3,10 @@ import {
   effect,
   inject,
   input,
-  numberAttribute,
-  OnInit,
   signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import {
   IonContent,
   IonHeader,
@@ -20,19 +18,21 @@ import {
   IonButton,
   IonText,
   IonLabel,
-  ModalController, IonItem, IonIcon } from '@ionic/angular/standalone';
-import { User } from 'src/app/interfaces/user';
+  ModalController, IonItem, IonIcon, IonButtons, IonBackButton } from '@ionic/angular/standalone';
+import { User, UserPhotoEdit } from 'src/app/interfaces/user';
 import { ModalNamePage } from '../modal-name/modal-name.page';
 import { UsersService } from 'src/app/services/users.service';
 import { ModalPasswordPage } from '../modal-password/modal-password.page';
 import { Camera, CameraSource, CameraResultType } from '@capacitor/camera';
+import { OlMapDirective } from 'src/app/shared/directives/ol-maps/ol-map.directive';
+import { OlMarkerDirective } from 'src/app/shared/directives/ol-maps/ol-marker.directive';
 
 @Component({
   selector: 'app-profile-page',
   templateUrl: './profile-page.page.html',
   styleUrls: ['./profile-page.page.scss'],
   standalone: true,
-  imports: [IonIcon, IonItem, 
+  imports: [IonBackButton, IonButtons, IonIcon, IonItem,
     IonLabel,
     IonText,
     IonButton,
@@ -45,7 +45,8 @@ import { Camera, CameraSource, CameraResultType } from '@capacitor/camera';
     IonToolbar,
     CommonModule,
     FormsModule,
-  ],
+    OlMapDirective,
+    OlMapDirective, OlMarkerDirective],
 })
 export class ProfilePagePage {
   user = input.required<User>();
@@ -53,11 +54,17 @@ export class ProfilePagePage {
   #userService = inject(UsersService);
   email = signal('');
   name = signal('');
+  avatar = signal('');
+  coordinates = signal<[number, number]>([0, 0]);
+
 
   constructor() {
     effect(() => {
       this.email.set(this.user().email);
       this.name.set(this.user().name);
+      this.avatar.set(this.user().avatar);
+
+      this.coordinates.set([this.user().lat, this.user().lng]);
     });
   }
 
@@ -108,28 +115,48 @@ export class ProfilePagePage {
     const photo = await Camera.getPhoto({
       source: CameraSource.Camera,
       quality: 90,
-      height: 768,
-      width: 1024,
+      height: 200,
+      width: 200,
       // allowEditing: true,
       resultType: CameraResultType.DataUrl // Base64 (url encoded)
     });
 
-    // this.newEvent.get('image')?.setValue(photo.dataUrl as string);
-    // this.#changeDetector.markForCheck();
+    if(photo.dataUrl){
+      const newphoto : UserPhotoEdit = {
+        avatar: photo.dataUrl as string
+      }
+
+      this.#userService
+      .saveAvatar(newphoto)
+      .subscribe({
+        next: () => this.avatar.set(photo.dataUrl as string)
+      });
+    }
   }
 
   async pickFromGallery(){
     const photo = await Camera.getPhoto({
       source: CameraSource.Photos,
-      height: 640,
-      width: 640,
+      height: 200,
+      width: 200,
       // allowEditing: true,
       resultType: CameraResultType.DataUrl // Base64 (url encoded)
     });
 
-    // this.newEvent.get('image')?.setValue(photo.dataUrl as string);
-    // this.#changeDetector.markForCheck();
-  
+
+    if(photo.dataUrl){
+
+      const newphoto : UserPhotoEdit = {
+        avatar: photo.dataUrl as string
+      }
+
+      this.#userService
+      .saveAvatar(newphoto)
+      .subscribe({
+        next: () => this.avatar.set(photo.dataUrl as string),
+        error: (error) => console.log(error) 
+      });
+    }
   }
 
 }
