@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal, WritableSignal } from '@angular/core';
-import { User, UserLogin } from '../interfaces/user';
+import { User, UserFacebookLogin, UserGoogleLogin, UserLogin } from '../interfaces/user';
 import { catchError, from, map, Observable, of, switchMap } from 'rxjs';
 import { SingleUserResponse, TokenResponse } from '../interfaces/responses';
 import { Preferences } from '@capacitor/preferences';
@@ -46,6 +46,40 @@ export class AuthService {
       );
   }
 
+
+  loginGoogle(data: UserGoogleLogin): Observable<void>{
+    return this.#http
+      .post<TokenResponse>(`${this.#eventsURL}/google`, data)
+      .pipe(
+        switchMap(async (r) => {
+          try{
+            await Preferences.set({key: 'fs-token', value: r.accessToken});
+            this.#logged.set(true);
+          }catch(error){
+            throw new Error('Can\'t save authentication token in storage!');
+          }
+        })
+      );
+  }
+
+
+
+  loginFacebook(data: UserFacebookLogin): Observable<void>{
+    return this.#http
+    .post<TokenResponse>(`${this.#eventsURL}/facebook`, data)
+    .pipe(
+      switchMap(async (r) => {
+        try{
+          await Preferences.set({key: 'fs-token', value: r.accessToken});
+          this.#logged.set(true);
+        }catch(error){
+          throw new Error('Can\'t save authentication token in storage!');
+        }
+      })
+    );
+  }
+
+
   async logout(): Promise<void> {
     await Preferences.remove({ key: 'fs-token' });
     this.#logged.set(false);
@@ -73,9 +107,6 @@ export class AuthService {
     );
   }
 
-
-
-  
 
 
 }

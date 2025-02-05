@@ -4,7 +4,7 @@ import { RouterLink } from '@angular/router';
 import { ToastController, AlertController, IonButton, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonList, IonRouterLink, IonRow, IonTitle, IonToolbar, NavController, IonLabel } from '@ionic/angular/standalone';
 import { AuthService } from 'src/app/services/auth.service';
 import { Geolocation } from '@capacitor/geolocation';
-import { GoogleUser, UserLogin } from 'src/app/interfaces/user';
+import { GoogleUser, UserFacebookLogin, UserGoogleLogin, UserLogin } from 'src/app/interfaces/user';
 import { SocialLogin } from '@capgo/capacitor-social-login';
 
 
@@ -79,10 +79,50 @@ export class LoginPage {
       });
       if(resp.result.responseType === 'online') {
         this.user.set(resp.result.profile);
-        console.log(resp.result.idToken);
+
+        const newlogin: UserGoogleLogin = {
+          token: resp.result.idToken!,
+          lat: this.coords()[0],
+          lng: this.coords()[1]
+        };
+
+        this.#authService.loginGoogle(newlogin).subscribe({
+          next: () => this.#navCtrl.navigateRoot(['/posts/home']),
+          error: (error) => {
+            alert(error);
+          },
+        });
+
       }
     } catch (err) {
       console.error(err);
+      alert(err);
+    }
+  }
+
+
+  async loginFacebook(){
+    const resp = await SocialLogin.login({
+      provider: 'facebook',
+      options: {
+        permissions: ['email'],
+      },
+    });
+    if (resp.result.accessToken) {
+      const newlogin: UserFacebookLogin = {
+        token: resp.result.accessToken.token!,
+        lat: this.coords()[0],
+        lng: this.coords()[1]
+      };
+
+      this.#authService.loginFacebook(newlogin).subscribe({
+        next: () => this.#navCtrl.navigateRoot(['/posts/home']),
+        error: (error) => {
+          alert(error);
+        },
+      });
+      // this.accessToken.set(resp.result.accessToken.token);
+      // console.log(resp.result.accessToken.token);
     }
   }
 
