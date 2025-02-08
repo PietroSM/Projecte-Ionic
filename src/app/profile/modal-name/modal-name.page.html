@@ -21,7 +21,7 @@
     class="form-control"
     name="email"
     id="email"
-    placeholder="Enter Email"
+    label="Email"
     labelPlacement="floating"
     formControlName="email"></ion-input>
   </ion-item>
@@ -31,13 +31,13 @@
       type="text"
       name="name"
       id="name"
-      placeholder="Enter Name"
+      label="Name"
       labelPlacement="floating"
       formControlName="name"
     ></ion-input>
   </ion-item>
 
-  <ion-button expand="full" type="submit" color="primary">Save changes</ion-button>
+  <ion-button expand="full" type="submit" color="primary" [disabled]="newEdit.invalid">Save changes</ion-button>
 </form>
 
 </ion-content>

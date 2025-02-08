@@ -8,6 +8,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
+  ToastController,
   IonContent,
   IonHeader,
   IonTitle,
@@ -52,6 +53,7 @@ export class ProfilePagePage {
   user = input.required<User>();
   #modalCtrl = inject(ModalController);
   #userService = inject(UsersService);
+  #toastCtrl = inject(ToastController);
   email = signal('');
   name = signal('');
   avatar = signal('');
@@ -84,9 +86,15 @@ export class ProfilePagePage {
           this.email.set(result.data.userEdit.email);
           this.name.set(result.data.userEdit.name);
         },
-        error: (error) => {
-          console.log(error);
-        }
+        error: async (error) => {
+          (
+            await this.#toastCtrl.create({
+              header: 'Update error',
+              message: error.error.message,
+              buttons: ['Ok'],
+            })
+          ).present();
+        },
       });
     }
   }
@@ -103,9 +111,15 @@ export class ProfilePagePage {
       this.#userService
       .savePassword(result.data.password)
       .subscribe({
-        error: (error) => {
-          console.log(error);
-        }
+        error: async (error) => {
+          (
+            await this.#toastCtrl.create({
+              header: 'Update error',
+              message: error.error.message,
+              buttons: ['Ok'],
+            })
+          ).present();
+        },
       });
     }
 

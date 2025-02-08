@@ -1,5 +1,6 @@
 <ion-app>
   <ion-split-pane contentId="main-content">
+    @if(user()){
     <ion-menu contentId="main-content" type="overlay" [disabled]="!user">
       @if(user()){
         <ion-item color="tertiary">
@@ -33,6 +34,7 @@
         </ion-list>
       </ion-content>
     </ion-menu>
+  }
     <ion-router-outlet id="main-content"></ion-router-outlet>
   </ion-split-pane>
 </ion-app>

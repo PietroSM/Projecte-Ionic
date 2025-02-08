@@ -1,4 +1,4 @@
-import { Component, effect, inject, input } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormsModule,
@@ -9,9 +9,7 @@ import {
   IonContent,
   IonHeader,
   IonTitle,
-  IonToolbar, IonList, IonItem, IonInput, IonIcon, IonLabel, IonButton, IonImg, IonCol, IonRow, IonGrid, ModalController, IonButtons } from '@ionic/angular/standalone';
-import { User, UserProfileEdit } from 'src/app/interfaces/user';
-import { UsersService } from 'src/app/services/users.service';
+  IonToolbar, IonItem, IonInput, IonIcon, IonButton, ModalController, IonButtons } from '@ionic/angular/standalone';
 import { equalValues } from 'src/app/shared/validator/equals-values.validators';
 
 @Component({

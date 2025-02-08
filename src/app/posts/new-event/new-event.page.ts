@@ -74,7 +74,7 @@ export class NewEventPage {
       quality: 90,
       height: 768,
       width: 1024,
-      // allowEditing: true,
+      allowEditing: true,
       resultType: CameraResultType.DataUrl // Base64 (url encoded)
     });
 
@@ -87,7 +87,7 @@ export class NewEventPage {
       source: CameraSource.Photos,
       height: 640,
       width: 640,
-      // allowEditing: true,
+      allowEditing: true,
       resultType: CameraResultType.DataUrl // Base64 (url encoded)
     });
 
@@ -113,7 +113,6 @@ export class NewEventPage {
     .subscribe({
       next: () => this.#nav.navigateRoot(['/posts/home']),
       error: (error) => console.log(error)
-
     });
 
   }

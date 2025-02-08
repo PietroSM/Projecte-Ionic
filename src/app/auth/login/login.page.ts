@@ -66,9 +66,6 @@ export class LoginPage {
   }
 
 
-
-  user = signal<GoogleUser | null>(null);
-
   async loginGoogle() {
     try {
       const resp = await SocialLogin.login({
@@ -78,8 +75,6 @@ export class LoginPage {
         },
       });
       if(resp.result.responseType === 'online') {
-        this.user.set(resp.result.profile);
-
         const newlogin: UserGoogleLogin = {
           token: resp.result.idToken!,
           lat: this.coords()[0],
@@ -88,15 +83,20 @@ export class LoginPage {
 
         this.#authService.loginGoogle(newlogin).subscribe({
           next: () => this.#navCtrl.navigateRoot(['/posts/home']),
-          error: (error) => {
-            alert(error);
+          error: async (error) => {
+            (
+              await this.#toastCtrl.create({
+                header: 'Login error',
+                message: 'Google login failed',
+                buttons: ['Ok'],
+              })
+            ).present();
           },
         });
 
       }
     } catch (err) {
       console.error(err);
-      alert(err);
     }
   }
 
@@ -117,12 +117,16 @@ export class LoginPage {
 
       this.#authService.loginFacebook(newlogin).subscribe({
         next: () => this.#navCtrl.navigateRoot(['/posts/home']),
-        error: (error) => {
-          alert(error);
+        error: async (error) => {
+          (
+            await this.#toastCtrl.create({
+              header: 'Login error',
+              message: 'Facebook login failed',
+              buttons: ['Ok'],
+            })
+          ).present();
         },
       });
-      // this.accessToken.set(resp.result.accessToken.token);
-      // console.log(resp.result.accessToken.token);
     }
   }
 

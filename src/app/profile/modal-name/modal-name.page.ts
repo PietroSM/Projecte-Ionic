@@ -4,6 +4,7 @@ import {
   FormsModule,
   NonNullableFormBuilder,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
 import {
   IonContent,
@@ -37,8 +38,8 @@ export class ModalNamePage {
 
   #fb = inject(NonNullableFormBuilder);
   newEdit = this.#fb.group({
-    email: '',
-    name: '',
+    email: ['', [Validators.required, Validators.email]],
+    name: ['', [Validators.required]],
   });
 
   constructor() {

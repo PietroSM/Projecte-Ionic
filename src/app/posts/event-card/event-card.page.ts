@@ -24,7 +24,7 @@ import { EventsService } from 'src/app/services/events.service';
   templateUrl: './event-card.page.html',
   styleUrls: ['./event-card.page.scss'],
   standalone: true,
-  imports: [IonIcon, IonTabButton,  
+  imports: [  
     IonCardContent,
     IonCardSubtitle,
     IonCardTitle,
