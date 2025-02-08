@@ -134,6 +134,8 @@ export class AppComponent {
         // mode: 'offline' // replaces grantOfflineAccess
       },
       facebook: {
+        appId: '9352218331466297',
+        clientToken: 'e89f796fcc6327b1acf507a1f595cd6a',
       },
     });
   }
